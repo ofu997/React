@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-       <meta charset="UTF-8">
-       <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
-<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+  <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
 
-  </head>
+</head>
   <body>
     <div id="root"></div>
 
     <script type="text/babel">
-    /*
-    var element=React.createElement(
-    'h1',null,'Hello World, the hard way!')
+      /*
+      var element=React.createElement(
+      'h1',null,'Hello World, the hard way!')
 
 
-    ReactDOM.render(
-                  //<div>Hello World</div>,
-                  element,
-                  document.getElementById("root")
-              )
+      ReactDOM.render(
+      //<div>Hello World</div>,
+      element,
+      document.getElementById("root")
+    )
     */
 
     /*
     var number=0;
 
     function updateNumber(){
-      ReactDom.render(
-        <div>{number++}</div>,
-        document.getElementById("root")
-      )
+    ReactDom.render(
+    <div>{number++}</div>,
+    document.getElementById("root")
+    )
     }
 
     setInterval(updateNumber,100)
@@ -40,8 +40,8 @@
     var width=15;
 
     /*var styleobject={
-      color: yellow,
-      fontSize:55
+    color: yellow,
+    fontSize:55
     }
     */
 
@@ -49,16 +49,12 @@
       return x*y
     }
 
-
-    var result=<h1>the area is: {calculateArea(length,width)}/></h1>
-
-
+    var result=<h1>the area is: {calculateArea(length,width)}</h1>
 
     ReactDOM.render(
       result,
       document.getElementById("root")
     )
-
-</script>
+    </script>
   </body>
 </html>

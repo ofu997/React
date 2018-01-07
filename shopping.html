@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+  <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+
+</head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+
+      function LineItem(props){
+        return <li>{props.item}</li>
+      }
+
+      function ShoppingList(props){
+        return(
+          <div>
+
+            <h3>{props.title}</h3>
+
+            <ol>
+              <LineItem item={props.items[0]}/>
+              <LineItem item={props.items[1]}/>
+              <LineItem item={props.items[2]}/>
+            </ol>
+          </div>
+        )
+      }
+
+    function ShoppingTitle(props){
+      return(
+        <div>
+
+          <h1>{props.title}</h1>
+          <h2>total number of items: {9}</h2>
+        </div>
+      )
+    }
+
+    function MyShoppingApp(props){
+      return(
+        <div>
+          <ShoppingTitle title="My Shopping List" numItems={9}/>
+          <ShoppingList title="Food" items={['apple','bread','cheese']}/>
+          <ShoppingList title="Clothes" items={['shirt','hat','pants']}/>
+          <ShoppingList title="supplies" items={['Pen','paper','glue']}/>
+        </div>
+      )
+    }
+
+
+    ReactDOM.render(
+      <MyShoppingApp/>,
+      document.getElementById("root")
+    )
+
+    </script>
+  </body>
+</html>
