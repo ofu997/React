@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+  <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+  <script src="src/lib/js/bootstrap.min.js"></script>
+          <link rel="src/stylesheet" href="lib/css/bootstrap.min.css">
+
+</head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+
+      function LineItem(props){
+        return <li></li>
+      }
+
+      function VehicleList(props){
+        return(
+          <div>
+            <table>
+              <tr>
+                <th>&nbsp;Year&nbsp;</th>
+                <th>&nbsp; Model &nbsp;</th>
+                <th>&nbsp; Price &nbsp;</th>
+                <th>&nbsp; Buy &nbsp;</th>
+              </tr>
+
+              <tr>
+                <td >
+                  <h5>{props.items[0]}</h5>
+                </td>
+                <td align="right">
+                  {props.items[1]}
+                </td>
+                <td >
+                  <h5>{props.items[2]}</h5>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-success">Buy Now</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        )
+      }
+
+    function VehicleTitle(props){
+      return(
+        <div>
+          <h1>{props.title}</h1>
+          <h2>{props.subtitle}</h2>
+        </div>
+      )
+    }
+
+    function MyVehicleApp(props){
+      return(
+        <div>
+          <VehicleTitle title="Welcome to React Transportation" subtitle="The best place to buy vehicles online"/>
+
+          /*new only, select type */
+
+          <h2>Cars</h2>
+          <VehicleList items={['2013','A','$32,000']}/>
+          <VehicleList items={['2011','B','$4,400']}/>
+          <VehicleList items={['2016','B','$15,500']}/>
+
+          <h2>Trucks</h2>
+          <VehicleList items={['2014','D','$18,000']}/>
+          <VehicleList items={['2013','E','$5,200']}/>
+
+          <h2>Convertibles</h2>
+          <VehicleList items={['2009','F','$2,000']}/>
+          <VehicleList items={['2010','G','$6,000']}/>
+          <VehicleList items={['2012','H','$12,500']}/>
+          <VehicleList items={['2017','M','$50,000']}/>
+        </div>
+      )
+    }
+
+    ReactDOM.render(
+      <MyVehicleApp/>,
+      document.getElementById("root")
+    )
+
+    </script>
+  </body>
+</html>
