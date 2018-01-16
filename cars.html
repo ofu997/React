@@ -14,11 +14,6 @@
 
     <script type="text/babel">
 
-
-      function LineItem(props){
-        return <li></li>
-      }
-
       function VehicleList(props){
         return(
           <div>
@@ -29,7 +24,6 @@
                 <th>&nbsp; Price &nbsp;</th>
                 <th>&nbsp; Buy &nbsp;</th>
               </tr>
-
               <tr>
                 <td >
                   <h5>{props.items[0]}</h5>
@@ -48,7 +42,6 @@
           </div>
         )
       }
-
     function VehicleTitle(props){
       return(
         <div>
@@ -57,23 +50,30 @@
         </div>
       )
     }
-
     function MyVehicleApp(props){
       return(
         <div>
           <VehicleTitle title="Welcome to React Transportation" subtitle="The best place to buy vehicles online"/>
 
-          /*new only, select type */
+          <h4>Choose to select type</h4>
+          <form>New Only<input type="checkbox"></input></form><br></br>
+          <form>
+          Select type
+          <select>
+            <option>Cars</option>
+            <option>Trucks</option>
+            <option>Convertibles</option>
+          </select>
+          </form>
+
 
           <h2>Cars</h2>
           <VehicleList items={['2013','A','$32,000']}/>
           <VehicleList items={['2011','B','$4,400']}/>
           <VehicleList items={['2016','B','$15,500']}/>
-
           <h2>Trucks</h2>
           <VehicleList items={['2014','D','$18,000']}/>
           <VehicleList items={['2013','E','$5,200']}/>
-
           <h2>Convertibles</h2>
           <VehicleList items={['2009','F','$2,000']}/>
           <VehicleList items={['2010','G','$6,000']}/>
@@ -82,12 +82,10 @@
         </div>
       )
     }
-
     ReactDOM.render(
       <MyVehicleApp/>,
       document.getElementById("root")
     )
-
     </script>
   </body>
 </html>
