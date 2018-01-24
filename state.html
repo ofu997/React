@@ -11,16 +11,27 @@
     <div id="root"></div>
     <script type="text/babel">
 
-    class Welcome extends React.Component{
+    class Counter extends React.Component{
+      constructor(props){
+        super(props)
+        //initial state set up
+        this.state={message:"initial message"}
+      }
+      componentDidMount(){
+        //updates state
+        this.setState((prevState, props)=>{
+          return {message: prevState.message+" and now new message"}
+        })
+      }
       render(){
-        return <h1>{this.props.message}</h1>
+        return <div>Message: {this.state.message}</div>
       }
     }
     ReactDOM.render(
-      <Welcome message="Class Component"/>,
+      <Counter/>,
       document.getElementById("root")
     )
-    
+
     </script>
   </body>
 </html>
