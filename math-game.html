@@ -9,14 +9,13 @@
 </head>
   <body>
     <div id="root"></div>
-
     <script type="text/babel">
     /*
     steps:
     1. display a number on a button**
     2. display a calculation on a button**
     2.5 calculate with a modifiable function**
-    3. display a random question and its calculation on a button 
+    3. display a random question and its calculation on a button
     4. display a randomized math question
     5. display one correct and wrong answers
     6. keep track of correct and wrong answers
@@ -33,73 +32,64 @@
     }
     */
 
+    /*
+    function Question (props){
+      return(
+        <h3>this.props.question</h3>
+      )
+    }
+
+    function Answer (props){
+      return(
+        <h3>this.props.answer</h3>
+      )
+    }
+    */
+
     class App extends React.Component{
       constructor(props){
         super(props)
-        //this.Calculate=this.Calculate.bind(this)
-        //var question="";
-        var range=[0,1000];
-        this.state={number1: Math.floor((Math.random()*50)+1), number2: Math.floor((Math.random()*50)+1), question:""};
+        this.state={number1: Math.floor((Math.random()*50)+1), number2: Math.floor((Math.random()*50)+1), randomNumberBetween1and5:1, question:"", answer:""};
         this.Calculate=this.Calculate.bind(this);
       }
 
-
-
       Calculate(x,y){
-        // array determines which method to use
+          if (this.state.randomNumberBetween1and5==1){
+            function Hypotenuse(a, b) {
+              return(Math.sqrt((a * a) + (b * b)));
+            }
+            this.setState({question:"What is  the hypotenuse of a right triangle with sides of length " + this.state.number1 + " and " + this.state.number2})
+            var newAnswer= Hypotenuse(x,y)
 
-        //var methodArray=[1,2,3,4,5];
-        //var randomNumberBetween1and5=3;
-        var randomNumberBetween1and5 = Math.floor((Math.random() * 5)+1);
-        //console.log(randomNumberBetween1and5);
-        if (randomNumberBetween1and5==1 && x>25 && y>25){
-          this.setState({question:" + "})
-          return x+y
+
+          }
+          else if (this.state.randomNumberBetween1and5==2 && y>x){
+            this.setState({question:"What is ("+this.state.number1+" -"+this.state.number2+") squared?"})
+            var difference=x-y
+            var newAnswer= difference*difference
+          }
+          else if (this.state.randomNumberBetween1and5==3){
+            this.setState({question:"What is"+this.state.number1+" squared?"})
+            var newAnswer= Math.pow(x,2)
+          }
+          else if (this.state.randomNumberBetween1and5==4){
+            this.setState({question:" divided by "})
+            var newAnswer= x/y
+          }
+          else{
+            this.setState({question:" X "})
+            var newAnswer= x*y
+          }
+          this.setState({answer:newAnswer})
         }
-        else if (randomNumberBetween1and5==2){
-          this.setState({question:" - "})
-          return x-y
-        }
-        else if (randomNumberBetween1and5==3 && x<11 && y<11){
-          this.setState({question:" to the power of "})
-          return Math.pow(x,y)
-        }
-        else if (randomNumberBetween1and5==4){
-          this.setState({question:" divided by "})
-          return x/y
-        }
-        else{
-          this.setState({question:" X "})
-          return x*y
-        }
-      }
+
         render(){
           return(
-            /*
-            <div style={{display: 'flex', flexDirection: 'column'}}>
-              {6}
-            </div>
-            */
-            /*
-            <table>
-              <tr>
-                <td>
-                  <p>{6}</p>
-                </td>
-              </tr>
-            </table>
-            */
             <div>
-              /*
-              <h3>What is {this.state.number1} + {this.state.number2}</h3>
-              <button style={{color: "blue"}}>{this.Calculate(this.state.number1,this.state.number2)}</button>
-              <h3>{this.state.question}</h3>
-              */
-              <button style={{color: "blue"}} onClick={()=>{this.props.Calculate(this.state.number1,this.state.number2)}}>Question</button>
-
-              <h3>{this.state.number1}{this.state.question}{this.state.number2}</h3>
+              <button style={{color: "blue"}} onClick={()=>{this.Calculate(this.state.number1,this.state.number2)}}>Start</button>
+              <h2>{this.state.question}</h2>
+              <h3>{this.state.answer}</h3>
             </div>
-            //{this.state.number1*this.state.number2}
           )
         }
     }
@@ -108,6 +98,16 @@
       <App/>,
       document.getElementById("root")
     )
+
+
     </script>
   </body>
+  <!--
+  /*
+  <h3>What is {this.state.number1} + {this.state.number2}</h3>
+  <button style={{color: "blue"}}>{this.Calculate(this.state.number1,this.state.number2)}</button>
+  <h3>{this.state.question}</h3>
+  <h3>{this.state.number1}{this.state.question}{this.state.number2}</h3>
+  */
+  -->
 </html>
