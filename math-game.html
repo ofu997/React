@@ -12,6 +12,17 @@
 
     <script type="text/babel">
     /*
+    steps:
+    1. display a number on a button**
+    2. display a calculation on a button**
+    2.5 calculate with a modifiable function
+    3. display a random calculation on a button
+    4. display a randomized math question
+    5. display one correct and wrong answers
+    6. keep track of correct and wrong answers
+    7. let user end game
+    */
+    /*
     class Choices extends React.Component{
         render(){
             return (
@@ -25,42 +36,39 @@
     class App extends React.Component{
       constructor(props){
         super(props)
-        //this.clickHandler=this.clickHandler.bind(this)
+        //this.Calculate=this.Calculate.bind(this)
         this.state={number1:2, number2:3}
-        /*
-        props.number1=3
-        props.number2=2
-        props.answer={props.number1*props.number2}
-        */
+        this.Calculate=this.Calculate.bind(this)
       }
-      /*
-      clickHandler{
-
+      //var n1=2;
+      Calculate(x,y){
+        // array determines which method to use
+        var methodArray=[1,2,3,4,5]
+        return x*y
       }
-      */
-
-      render(){
-        return(
-          /*
-          <div style={{display: 'flex', flexDirection: 'column'}}>
-            {6}
-          </div>
-          */
-          /*
-          <table>
-            <tr>
-              <td>
-                <p>{6}</p>
-              </td>
-            </tr>
-          </table>
-          */
-
-          <button style={{color: "blue"}}>{this.state.number1*this.state.number2}</button>
-
-
-        )
-      }
+        render(){
+          return(
+            /*
+            <div style={{display: 'flex', flexDirection: 'column'}}>
+              {6}
+            </div>
+            */
+            /*
+            <table>
+              <tr>
+                <td>
+                  <p>{6}</p>
+                </td>
+              </tr>
+            </table>
+            */
+            <div>
+              <h3>What is {this.state.number1} + {this.state.number2}</h3> 
+              <button style={{color: "blue"}}>{this.Calculate(this.state.number1,this.state.number2)}</button>
+            </div>
+            //{this.state.number1*this.state.number2}
+          )
+        }
     }
 
     ReactDOM.render(
