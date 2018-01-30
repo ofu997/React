@@ -25,12 +25,20 @@
     class App extends React.Component{
       constructor(props){
         super(props)
+        //this.clickHandler=this.clickHandler.bind(this)
+        this.state={number1:2, number2:3}
         /*
         props.number1=3
         props.number2=2
         props.answer={props.number1*props.number2}
         */
       }
+      /*
+      clickHandler{
+
+      }
+      */
+
       render(){
         return(
           /*
@@ -48,7 +56,7 @@
           </table>
           */
 
-          <button style={{color: "blue"}}>{6}</button>
+          <button style={{color: "blue"}}>{this.state.number1*this.state.number2}</button>
 
 
         )
