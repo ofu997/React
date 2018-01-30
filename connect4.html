@@ -23,7 +23,6 @@
           this.state = {player:false,cells:cells,winner:0}
           this.handleClick = this.handleClick.bind(this)
       }
-
       checkDiagonal(row,col){
       //find right and left tops
       var c = this.state.cells;
@@ -34,7 +33,6 @@
         rR++;
         cR++;
       }
-
       while( rR >= 3 && cR >= 3){
         if(c[rR][cR] == val && c[rR-1][cR-1] == val && c[rR-2][cR-2] == val && c[rR-3][cR-3] == val){
             return 1
@@ -42,7 +40,6 @@
         rR--
         cR--
       }
-
       var rL = row;
       var cL = col;
 
@@ -50,7 +47,6 @@
         rL++
         cL--
       }
-
       while(rL >= 3 && cL <= 3){
           if(c[rL][cL] == val && c[rL-1][cL+1] == val && c[rL-2][cL+2] == val && c[rL-3][cL+3] == val){
               return 1
@@ -121,6 +117,7 @@
           }
         })
       }
+      // end of Game
       restart(){
         var cells = [];
         for(let i = 0; i < 6; i++ ){
