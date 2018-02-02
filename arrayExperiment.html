@@ -1,3 +1,7 @@
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,13 +29,14 @@
     class Choices extends React.Component{
         render(){
             return (
-              <button><button/>
+              // four numbers
+              // call
             )
         }
     }
+    */
 
-
-
+    /*
     function Question (props){
       return(
         <h3>this.props.question</h3>
@@ -57,15 +62,6 @@
       }
     }
     */
-    class Button extends React.Component{
-      render(){
-          return (
-            <div style = {{color: this.props.correct? 'red': 'blue', }} display={this.props.start ? "hidden": "block"}
-            >{this.props.name}
-            </div>
-          )
-      }
-    }
 
 
     class App extends React.Component{
@@ -77,68 +73,63 @@
           this.Calculate=this.Calculate.bind(this);
 
       }
-      /*
-      class Choices extends React.Component{
-          render(){
-            return <h1>{this.props.details}</h1>
-
-          }
-      }
-      */
 
       Calculate(x,y){
-
         this.setState({number1:Math.floor((Math.random()*50)+1)})
         this.setState({number2:Math.floor((Math.random()*50)+1)})
 
         this.setState({randomNumberBetween1and5:1})
+
+
         /*
-        this.setState({randomNumberBetween1and5:Math.floor((Math.random()*5)+1)
+        this.setState({randomNumberBetween1and5:1
         })
+        */
+        /*
+        this.setState({orderArray : [1,2,3,4,5]})
+        this.setState({firstPos : Math.floor(Math.random()*5)})
+        var i=this.state.firstPos;
+        neworderArray.splice(i, 0, 0);
+        this.setState({orderArray : neworderArray})
         */
 
         function Operation1(a, b) {
-          return (Math.sqrt((a * a) + (b * b)).toFixed(2));
+          return(Math.sqrt((a * a) + (b * b)));
         }
         function Operation2(a,b){
-          return ((a-b)*(a-b));
+          return (a-b)*(a-b)
         }
         function Operation3(a){
           return Math.pow(a,2)
         }
         function Operation4(a,b){
-          return ((a/b).toFixed(2));
+          return a/b
         }
         function Operation5(a,b){
           return a*b
         }
-
+        function randomArray(x){
+          x.sort(function(a,b){
+            return 0.5-Math.random()
+          });
+        }
           if (this.state.randomNumberBetween1and5==1){
-            //console.log(this.state.answer)
+
             this.setState({question:"What is  the hypotenuse of a right triangle with sides of length " + this.state.number1 + " and " + this.state.number2})
             var newAnswer= Operation1(x,y)
-            var tempWrong1=Operation2(x,y)
-            var tempWrong2=Operation3(x,y)
-            var tempWrong3=Operation4(x,y)
-            var tempWrong4=Operation5(x,y)
-
-            var tempArray=[newAnswer,tempWrong1,tempWrong2,tempWrong3,tempWrong4]
-
-            this.setState({orderArray : tempArray.sort(function(a, b){return 0.5 - Math.random()})})
-
-
-
-            for (var i=0; i<5; i++){
-              if(this.state.orderArray[i]===this.state.answer)
-              console.log(i)
-            }
+            var wrong1=Operation2(x,y)
+            var wrong2=Operation3(x,y)
+            var wrong3=Operation4(x,y)
+            var wrong4=Operation5(x,y)
             /*
-            var tempArray=[newAnswer,wrong1,wrong2,wrong3,wrong4]
-            var randomArray=randomArray(tempArray)
-            this.setState({orderArray : randomArray})
-            randomizePositionOfChoices();
+            this.setState({orderArray:[newAnswer,wrong1,wrong2,wrong3,wrong4]})
             */
+
+            var tempArray=[newAnswer,wrong1,wrong2,wrong3,wrong4]
+            this.setState({orderArray :             tempArray.sort(function(a, b){return 0.5 - Math.random()})})
+
           }
+
           else if (this.state.randomNumberBetween1and5==2 && y>x){
             this.setState({question:"What is ("+this.state.number1+" -"+this.state.number2+") squared?"})
 
@@ -164,10 +155,6 @@
             //randomizePositionOfChoices();
           }
           this.setState({answer:newAnswer})
-          this.setState({wrong1:tempWrong1})
-          this.setState({wrong2:tempWrong2})
-          this.setState({wrong3:tempWrong3})
-          this.setState({wrong4:tempWrong4})
 
           this.setState({showStart:0})
           this.setState({nextQuestion:1})
@@ -184,12 +171,6 @@
             return this.state.orderArray
           }
           */
-          /*
-          <h3>{this.state.answer}</h3>
-          */
-          /*
-          <h3>{this.state.orderArray.toString()}</h3>
-          */
         }
 
         render(){
@@ -197,17 +178,9 @@
             <div>
 
               <button style={this.state.showStart? {}:{display:"none"}} onClick={()=>{this.Calculate(this.state.number1,this.state.number2)}}>Start</button>
-
               <h2>{this.state.question}</h2>
-
-
-              <Button start={this.state.showStart} correct={this.state.orderArray[0]==this.state.answer} name={this.state.orderArray[0]}/>
-              <Button start={this.state.showStart} correct={this.state.orderArray[1]==this.state.answer} name={this.state.orderArray[1]}/>
-              <Button start={this.state.showStart} correct={this.state.orderArray[2]==this.state.answer} name={this.state.orderArray[2]}/>
-              <Button start={this.state.showStart} correct={this.state.orderArray[3]==this.state.answer} name={this.state.orderArray[3]}/>
-              <Button start={this.state.showStart} correct={this.state.orderArray[4]==this.state.answer} name={this.state.orderArray[4]}/>
-
-
+              <h3>{this.state.answer}</h3>
+              <h3>{this.state.orderArray.toString()}</h3>
 
               <button style={this.state.nextQuestion? {}:{display:"none"}} onClick={()=>{this.Calculate(this.state.number1,this.state.number2)}}>Next Question</button>
             </div>
