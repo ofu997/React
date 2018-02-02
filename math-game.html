@@ -11,53 +11,7 @@
   <body>
     <div id="root"></div>
     <script type="text/babel">
-    /*
-    steps:
-    1. display a number on a button**
-    2. display a calculation on a button**
-    2.5 calculate with a modifiable function**
-    3. display a random question and its calculation on a button
-    4. display a randomized math question
-    5. display one correct and wrong answers
-    6. keep track of correct and wrong answers
-    7. let user end game
-    */
-    /*
-    class Choices extends React.Component{
-        render(){
-            return (
-              <button><button/>
-            )
-        }
-    }
 
-
-
-    function Question (props){
-      return(
-        <h3>this.props.question</h3>
-      )
-    }
-
-    function Answer (props){
-      return(
-        <h3>this.props.answer</h3>
-      )
-    }
-
-    class Next extends React.Component{
-      constructor(props){
-        super(props)
-        this.state={nextQuestion:0}
-
-      }
-      render(){
-        return(
-          <button style=""
-        )
-      }
-    }
-    */
     class Button extends React.Component{
       render(){
           return (
@@ -69,35 +23,18 @@
       }
     }
 
-
     class App extends React.Component{
       constructor(props){
         super(props)
         this.state={showStart:1,number1: Math.floor((Math.random()*50)+1)
-          , number2: Math.floor((Math.random()*50)+1), randomNumberBetween1and5:1, question:"", answer:"",wrong1:"",wrong2:"",wrong3:"",wrong4:"",nextQuestion:0,quit:0, firstPos:"",secondPos:"",thirdPos:"",fourthPos:"",fifthPos:"",orderArray:[]};
-          //this.randomizePositionOfChoices=this.randomizePositionOfChoices.bind(this);
+          , number2: Math.floor((Math.random()*50)+1), randomNumberBetween1and5:1, question:"", answer:"",wrong1:"",wrong2:"",wrong3:"",wrong4:"",nextQuestion:0,quit:0,orderArray:[]};
           this.Calculate=this.Calculate.bind(this);
-
       }
-      /*
-      class Choices extends React.Component{
-          render(){
-            return <h1>{this.props.details}</h1>
-
-          }
-      }
-      */
 
       Calculate(x,y){
-
         this.setState({number1:Math.floor((Math.random()*50)+1)})
         this.setState({number2:Math.floor((Math.random()*50)+1)})
-
         this.setState({randomNumberBetween1and5:1})
-        /*
-        this.setState({randomNumberBetween1and5:Math.floor((Math.random()*5)+1)
-        })
-        */
 
         function Operation1(a, b) {
           return (Math.sqrt((a * a) + (b * b)).toFixed(2));
@@ -116,7 +53,6 @@
         }
 
           if (this.state.randomNumberBetween1and5==1){
-            //console.log(this.state.answer)
             this.setState({question:"What is  the hypotenuse of a right triangle with sides of length " + this.state.number1 + " and " + this.state.number2})
             var newAnswer= Operation1(x,y)
             var tempWrong1=Operation2(x,y)
@@ -127,44 +63,28 @@
             var tempArray=[newAnswer,tempWrong1,tempWrong2,tempWrong3,tempWrong4]
 
             this.setState({orderArray : tempArray.sort(function(a, b){return 0.5 - Math.random()})})
-
-
-
-            for (var i=0; i<5; i++){
-              if(this.state.orderArray[i]===this.state.answer)
-              console.log(i)
-            }
-            /*
-            var tempArray=[newAnswer,wrong1,wrong2,wrong3,wrong4]
-            var randomArray=randomArray(tempArray)
-            this.setState({orderArray : randomArray})
-            randomizePositionOfChoices();
-            */
           }
           else if (this.state.randomNumberBetween1and5==2 && y>x){
             this.setState({question:"What is ("+this.state.number1+" -"+this.state.number2+") squared?"})
 
             var newAnswer= Operation2(x,y)
-            //randomizePositionOfChoices();
           }
           else if (this.state.randomNumberBetween1and5==3){
             this.setState({question:"What is "+this.state.number1+" squared?"})
 
             var newAnswer=Operation3(x)
-            //randomizePositionOfChoices();
           }
           else if (this.state.randomNumberBetween1and5==4){
             this.setState({question:"What is " + this.state.number1 + " divided by " + this.state.number2 + "?"})
 
             var newAnswer=Operation4(x,y)
-            //randomizePositionOfChoices();
           }
           else{
             this.setState({question:"What is " + this.state.number1 + " X " + this.state.number2 + "?"})
 
             var newAnswer= Operation5(x,y)
-            //randomizePositionOfChoices();
           }
+
           this.setState({answer:newAnswer})
           this.setState({wrong1:tempWrong1})
           this.setState({wrong2:tempWrong2})
@@ -173,25 +93,6 @@
 
           this.setState({showStart:0})
           this.setState({nextQuestion:1})
-          /*
-          function shuffleArray(array){
-            for (var i = array.length - 1; i > 0; i--) {
-              var j = Math.floor(Math.random() * (i + 1));
-              var temp = array[i];
-              array[i] = array[j];
-              array[j] = temp;
-            }
-          }
-          shuffleArray(this.state.orderArray){
-            return this.state.orderArray
-          }
-          */
-          /*
-          <h3>{this.state.answer}</h3>
-          */
-          /*
-          <h3>{this.state.orderArray.toString()}</h3>
-          */
         }
 
         render(){
@@ -202,14 +103,11 @@
 
               <h2>{this.state.question}</h2>
 
-
               <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[0]==this.state.answer} name={this.state.orderArray[0]}/>
               <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[1]==this.state.answer} name={this.state.orderArray[1]}/>
               <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[2]==this.state.answer} name={this.state.orderArray[2]}/>
               <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[3]==this.state.answer} name={this.state.orderArray[3]}/>
               <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[4]==this.state.answer} name={this.state.orderArray[4]}/>
-
-
 
               <button style={this.state.nextQuestion? {}:{display:"none"}} onClick={()=>{this.Calculate(this.state.number1,this.state.number2)}}>Next Question</button>
             </div>
@@ -223,12 +121,4 @@
     )
     </script>
   </body>
-  <!--
-  /*
-  <h3>What is {this.state.number1} + {this.state.number2}</h3>
-  <button style={{color: "blue"}}>{this.Calculate(this.state.number1,this.state.number2)}</button>
-  <h3>{this.state.question}</h3>
-  <h3>{this.state.number1}{this.state.question}{this.state.number2}</h3>
-  */
-  -->
 </html>
