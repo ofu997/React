@@ -12,13 +12,19 @@
     <div id="root"></div>
     <script type="text/babel">
 
+    //import "./styles.css";
+
     class Button extends React.Component{
       render(){
           return (
-            <div style = {{color: this.props.correct? 'red': 'blue'}}  display={this.props.start ? "hidden": "block"}
-            >
-            <h2>{this.props.name}</h2>
+            <div>
+                  <button style = {{color: this.props.correct? 'red': 'blue', width: "200px", visibility:this.props.start? "hidden": "visible", border:'2px black', margin:"5px 5px"}}   className="choices"
+                  >
+                  <h2>{this.props.name}</h2>
+                  </button>
+              <br/>
             </div>
+
           )
       }
     }
@@ -53,7 +59,7 @@
         }
 
           if (this.state.randomNumberBetween1and5==1){
-            this.setState({question:"What is  the hypotenuse of a right triangle with sides of length " + this.state.number1 + " and " + this.state.number2})
+            this.setState({question:"What is  the hypotenuse of a right triangle with sides of length " + this.state.number1 + " and " + this.state.number2 + "?"})
             var newAnswer= Operation1(x,y)
             var tempWrong1=Operation2(x,y)
             var tempWrong2=Operation3(x,y)
@@ -108,7 +114,7 @@
               <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[2]==this.state.answer} name={this.state.orderArray[2]}/>
               <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[3]==this.state.answer} name={this.state.orderArray[3]}/>
               <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[4]==this.state.answer} name={this.state.orderArray[4]}/>
-
+              <br/>
               <button style={this.state.nextQuestion? {}:{display:"none"}} onClick={()=>{this.Calculate(this.state.number1,this.state.number2)}}>Next Question</button>
             </div>
           )
