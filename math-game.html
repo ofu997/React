@@ -18,13 +18,14 @@
       render(){
           return (
             <div>
-                  <button style = {{color: this.props.correct? 'red': 'blue', width: "200px", visibility:this.props.start? "hidden": "visible", borderWidth:'1px', borderColor: "gold", borderRadius: "10px", margin:"5px 5px"}}
+                  <button style = {{color: this.props.correct? 'red': 'blue', width: "180px", visibility:this.props.start? "hidden": "visible", borderWidth:'2px', borderColor: "gold", borderRadius: "10px", margin:"5px 5px"}} onClick={
+                    ()=>{this.props.Counter(this.props.name, this.props.correct)}
+                  }
                   >
                   <h2>{this.props.name}</h2>
                   </button>
               <br/>
             </div>
-
           )
       }
     }
@@ -33,11 +34,30 @@
       constructor(props){
         super(props)
         this.state={showStart:1,number1: Math.floor((Math.random()*50)+1)
-          , number2: Math.floor((Math.random()*50)+1), randomNumberBetween1and5:1, question:"", answer:"",wrong1:"",wrong2:"",wrong3:"",wrong4:"",nextQuestion:0,quit:0,orderArray:[]};
-          this.Calculate=this.Calculate.bind(this);
+          , number2: Math.floor((Math.random()*50)+1), randomNumberBetween1and5:1, question:"", answer:"",wrong1:"",wrong2:"",wrong3:"",wrong4:"",nextQuestion:0,quit:0,orderArray:[],countQuestions:0,countCorrect:0,countWrong:0};
+          this.Generate=this.Generate.bind(this);
+          this.Counter=this.Counter.bind(this);
       }
 
-      Calculate(x,y){
+      Counter(name,correct){
+        this.setState((prevState,props) => {
+          return {countQuestions: prevState.countQuestions + 1}
+        })
+        if (correct){
+          this.setState((prevState,props)=>{
+            return {countCorrect:prevState.countCorrect+1}
+          })
+        }
+        else {
+          this.setState((prevState,props)=>{
+            return {countWrong:prevState.countWrong+1}
+          })
+        }
+        this.setState({percentage:this.state.countCorrect/this.state.countQuestions})
+        this.Generate(this.state.number1,this.state.number2)
+      }
+
+      Generate(x,y){
         this.setState({number1:Math.floor((Math.random()*50)+1)})
         this.setState({number2:Math.floor((Math.random()*50)+1)})
         this.setState({randomNumberBetween1and5:1})
@@ -61,7 +81,7 @@
           if (this.state.randomNumberBetween1and5==1){
             this.setState({question:"What is  the hypotenuse of a right triangle with sides of length " + this.state.number1 + " and " + this.state.number2 + "?"})
             var newAnswer= Operation1(x,y)
-            var tempWrong1=Operation2(x,y)
+            var tempWrong1=(Number(Operation1(x,y))+(((Math.random()*8)+1)/((Math.random()*4)+1))).toFixed(2)
             var tempWrong2=Operation3(x,y)
             var tempWrong3=Operation4(x,y)
             var tempWrong4=Operation5(x,y)
@@ -99,23 +119,43 @@
 
           this.setState({showStart:0})
           this.setState({nextQuestion:1})
-        }
+      }
 
         render(){
           return(
             <div>
+              <button style={{width: "100px", height: "50px", visibility:this.state.showStart? "visible": "hidden", borderWidth:'2px', borderColor: "gold", borderRadius: "10px"}} onClick={()=>{this.Generate(this.state.number1,this.state.number2)}}><h2>Start</h2></button>
 
-              <button style={this.state.showStart? {}:{display:"none"}} onClick={()=>{this.Calculate(this.state.number1,this.state.number2)}}>Start</button>
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-5" style={{float:"left", width: "500px", marginLeft:"100px"}}>
+                    <h1></h1>
 
-              <h2>{this.state.question}</h2>
+                    <h2 style={{ visibility:this.state.showStart? "hidden": "visible"}}>Question #{this.state.countQuestions+1}</h2>
+                    <h2>{this.state.question}</h2>
 
-              <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[0]==this.state.answer} name={this.state.orderArray[0]}/>
-              <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[1]==this.state.answer} name={this.state.orderArray[1]}/>
-              <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[2]==this.state.answer} name={this.state.orderArray[2]}/>
-              <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[3]==this.state.answer} name={this.state.orderArray[3]}/>
-              <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[4]==this.state.answer} name={this.state.orderArray[4]}/>
-              <br/>
-              <button style={this.state.nextQuestion? {}:{display:"none"}} onClick={()=>{this.Calculate(this.state.number1,this.state.number2)}}>Next Question</button>
+                    <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[0]==this.state.answer} name={this.state.orderArray[0]} Counter={this.Counter} number1={this.state.number1} number2={this.state.number2}/>
+                    <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[1]==this.state.answer} name={this.state.orderArray[1]} Counter={this.Counter}/>
+                    <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[2]==this.state.answer} name={this.state.orderArray[2]} Counter={this.Counter}/>
+                    <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[3]==this.state.answer} name={this.state.orderArray[3]} Counter={this.Counter}/>
+                    <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[4]==this.state.answer} name={this.state.orderArray[4]} Counter={this.Counter}/>
+                    <br/>
+                  </div>
+
+                  <div className="col-md-5" style={{float:"right", backgroundColor:"#eaeaea", marginRight:"100px"}}>
+
+                    <div style={this.state.countQuestions>0? {}:{"display":"none"}}>
+
+                    <button style={{width:"200px", height:"77px"}}><h3>correct:  {this.state.countCorrect}</h3></button>
+                    <br/>
+                    <button style={{width:"200px",height: "77px"}}><h3>wrong:  {this.state.countWrong}</h3></button>
+                    <br/>
+                    <button style={{width:"200px", height: "77px"}}><h3>percentage: {Number((this.state.countCorrect/this.state.countQuestions)*100).toFixed(2)}%</h3></button>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           )
         }
