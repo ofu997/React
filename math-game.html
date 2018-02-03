@@ -60,7 +60,7 @@
       Generate(){
         this.setState({number1:Math.floor((Math.random()*50)+1)})
         this.setState({number2:Math.floor((Math.random()*50)+1)})
-        this.setState({randomNumberBetween1and5:1})
+        this.setState({randomNumberBetween1and5:Math.floor((Math.random()*5)+1)})
 
         function Operation1(a, b) {
           return (Math.sqrt((a * a) + (b * b)).toFixed(2));
@@ -86,7 +86,6 @@
             var newX=(this.state.number1)+1
             var newY=this.state.number2+1
             var tempWrong1=Operation1(newX,this.state.number2)
-            /*(((Number(Operation1(this.state.number1,this.state.number2)))+((((Math.random()*8)+1)/((Math.random()*4)+1)).toFixed(2)))*/
             var tempWrong2=Operation1(this.state.number1,newY)
             var tempWrong3=Operation1(newX,this.state.number2-1)
             var tempWrong4=Operation1(newX-2,newY)
@@ -95,25 +94,68 @@
 
             this.setState({orderArray : tempArray.sort(function(a, b){return 0.5 - Math.random()})})
           }
-          else if (this.state.randomNumberBetween1and5==2 && y>x){
+          else if (this.state.randomNumberBetween1and5==2 && this.state.number2>this.state.number1){
             this.setState({question:"What is ("+this.state.number1+" -"+this.state.number2+") squared?"})
 
-            var newAnswer= Operation2(x,y)
+            var newAnswer= Operation2(this.state.number1,this.state.number2)
+            var newX=(this.state.number1)+1
+            var newY=this.state.number2+1
+            var tempWrong1=Operation2(newX,this.state.number2)
+            var tempWrong2=Operation2(this.state.number1,newY)
+            var tempWrong3=Operation2(newX,this.state.number2-1)
+            var tempWrong4=Operation2(newX-2,newY)
+
+            var tempArray=[newAnswer,tempWrong1,tempWrong2,tempWrong3,tempWrong4]
+
+            this.setState({orderArray : tempArray.sort(function(a, b){return 0.5 - Math.random()})})
           }
           else if (this.state.randomNumberBetween1and5==3){
             this.setState({question:"What is "+this.state.number1+" squared?"})
 
-            var newAnswer=Operation3(x)
+            var newAnswer= Operation3(this.state.number1)
+            var newX=(this.state.number1)+1
+            var tempWrong1=Operation3(newX)
+            console.log("wrong1"+tempWrong1)
+            var tempWrong2=Operation3(this.state.number1-1)
+            console.log("wrong2"+tempWrong2)
+            var tempWrong3=Operation3(newX+1)
+            console.log("wrong3"+tempWrong3)
+            var tempWrong4=Operation3(this.state.number1-2)
+            console.log("wrong4"+tempWrong4)
+
+            var tempArray=[newAnswer,tempWrong1,tempWrong2,tempWrong3,tempWrong4]
+
+            this.setState({orderArray : tempArray.sort(function(a, b){return 0.5 - Math.random()})})
           }
           else if (this.state.randomNumberBetween1and5==4){
             this.setState({question:"What is " + this.state.number1 + " divided by " + this.state.number2 + "?"})
 
-            var newAnswer=Operation4(x,y)
+            var newAnswer= Operation4(this.state.number1,this.state.number2)
+            var newX=(this.state.number1)+1
+            var newY=this.state.number2+1
+            var tempWrong1=Operation4(newX,this.state.number2)
+            var tempWrong2=Operation4(this.state.number1,newY)
+            var tempWrong3=Operation4(newX,this.state.number2-1)
+            var tempWrong4=Operation4(newX-2,newY)
+
+            var tempArray=[newAnswer,tempWrong1,tempWrong2,tempWrong3,tempWrong4]
+
+            this.setState({orderArray : tempArray.sort(function(a, b){return 0.5 - Math.random()})})
           }
           else{
             this.setState({question:"What is " + this.state.number1 + " X " + this.state.number2 + "?"})
 
-            var newAnswer= Operation5(x,y)
+            var newAnswer= Operation5(this.state.number1,this.state.number2)
+            var newX=(this.state.number1)+1
+            var newY=this.state.number2+1
+            var tempWrong1=Operation5(newX,this.state.number2)
+            var tempWrong2=Operation5(this.state.number1,newY)
+            var tempWrong3=Operation5(newX,this.state.number2-1)
+            var tempWrong4=Operation5(newX-2,newY)
+
+            var tempArray=[newAnswer,tempWrong1,tempWrong2,tempWrong3,tempWrong4]
+
+            this.setState({orderArray : tempArray.sort(function(a, b){return 0.5 - Math.random()})})
           }
 
           this.setState({answer:newAnswer})
