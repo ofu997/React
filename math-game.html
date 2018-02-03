@@ -54,10 +54,10 @@
           })
         }
         this.setState({percentage:this.state.countCorrect/this.state.countQuestions})
-        this.Generate(this.state.number1,this.state.number2)
+        this.Generate()
       }
 
-      Generate(x,y){
+      Generate(){
         this.setState({number1:Math.floor((Math.random()*50)+1)})
         this.setState({number2:Math.floor((Math.random()*50)+1)})
         this.setState({randomNumberBetween1and5:1})
@@ -73,6 +73,7 @@
         }
         function Operation4(a,b){
           return ((a/b).toFixed(2));
+          console.log((a/b).toFixed(2))
         }
         function Operation5(a,b){
           return a*b
@@ -80,11 +81,15 @@
 
           if (this.state.randomNumberBetween1and5==1){
             this.setState({question:"What is  the hypotenuse of a right triangle with sides of length " + this.state.number1 + " and " + this.state.number2 + "?"})
-            var newAnswer= Operation1(x,y)
-            var tempWrong1=(Number(Operation1(x,y))+(((Math.random()*8)+1)/((Math.random()*4)+1))).toFixed(2)
-            var tempWrong2=Operation3(x,y)
-            var tempWrong3=Operation4(x,y)
-            var tempWrong4=Operation5(x,y)
+
+            var newAnswer= Operation1(this.state.number1,this.state.number2)
+            var newX=(this.state.number1)+1
+            var newY=this.state.number2+1
+            var tempWrong1=Operation1(newX,this.state.number2)
+            /*(((Number(Operation1(this.state.number1,this.state.number2)))+((((Math.random()*8)+1)/((Math.random()*4)+1)).toFixed(2)))*/
+            var tempWrong2=Operation1(this.state.number1,newY)
+            var tempWrong3=Operation1(newX,newY)
+            var tempWrong4=Operation1(this.state.number1,newX)
 
             var tempArray=[newAnswer,tempWrong1,tempWrong2,tempWrong3,tempWrong4]
 
@@ -124,7 +129,7 @@
         render(){
           return(
             <div>
-              <button style={{width: "100px", height: "50px", visibility:this.state.showStart? "visible": "hidden", borderWidth:'2px', borderColor: "gold", borderRadius: "10px"}} onClick={()=>{this.Generate(this.state.number1,this.state.number2)}}><h2>Start</h2></button>
+              <button style={{width: "100px", height: "50px", visibility:this.state.showStart? "visible": "hidden", borderWidth:'2px', borderColor: "gold", borderRadius: "10px"}} onClick={()=>{this.Generate()}}><h2>Start</h2></button>
 
               <div className="container">
                 <div className="row">
