@@ -88,8 +88,8 @@
             var tempWrong1=Operation1(newX,this.state.number2)
             /*(((Number(Operation1(this.state.number1,this.state.number2)))+((((Math.random()*8)+1)/((Math.random()*4)+1)).toFixed(2)))*/
             var tempWrong2=Operation1(this.state.number1,newY)
-            var tempWrong3=Operation1(newX,newY)
-            var tempWrong4=Operation1(this.state.number1,newX)
+            var tempWrong3=Operation1(newX,this.state.number2-1)
+            var tempWrong4=Operation1(newX-2,newY)
 
             var tempArray=[newAnswer,tempWrong1,tempWrong2,tempWrong3,tempWrong4]
 
