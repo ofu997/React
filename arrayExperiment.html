@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-
+  <title>Mental Math Quiz</title>
   <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
   <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
@@ -11,16 +11,37 @@
   <body>
     <div id="root"></div>
     <script type="text/babel">
-    
+
+    function Feedback(props){
+      if (props.userChoiceWasCorrect){
+         return <h3 style={{color:"blue"}}>Correct!</h3>
+      }
+      else{
+         return <h4 style={{color:"red"}}>Sorry, incorrect</h4>
+      }
+    }
+
+    function Encourage(props){
+      return (
+        <div>
+          <div style={props.countQuestions>1&&(props.countCorrect/props.countQuestions)>=0.5? {}:{"display":"none"}}>
+            <h2 style={{color:"green"}}>Doing great!</h2>
+          </div>
+        </div>
+      )
+    }
+
     class Results extends React.Component{
       render(){
           return (
-              <div style={this.props.countQuestions>0? {}:{"display":"none"}}>
-                <button style={{width:"200px", height:"77px"}}><h3>Number correct:  {this.props.countCorrect}</h3></button>
-                <br/>
-                <button style={{width:"200px",height: "77px"}}><h3>Number wrong:  {this.props.countWrong}</h3></button>
-                <br/>
-                <button style={{width:"200px", height: "77px"}}><h3>Percentage correct: {Number((this.props.countCorrect/this.props.countQuestions)*100).toFixed(2)}%</h3></button>
+              <div>
+                <section style={this.props.countQuestions>0? {}:{"display":"none"}}>
+                  <div style={{width:"150px", height:"77px"}}><h3>Number correct:  {this.props.countCorrect}</h3></div>
+                  <br/>
+                  <div style={{width:"150px",height: "77px"}}><h3>Number wrong:  {this.props.countWrong}</h3></div>
+                  <br/>
+                  <div style={{width:"150px", height: "77px"}}><h3>Percentage correct: {Number((this.props.countCorrect/this.props.countQuestions)*100).toFixed(2)}%</h3></div>
+                </section>
               </div>
           )
       }
@@ -40,11 +61,33 @@
           )
       }
     }
+    function Question(props){
+      return(
+        <div>
+          <h2 style={{ visibility:props.showStart? "hidden": "visible"}}>Question #{props.countQuestions+1}</h2>
+          <h2>{props.question}</h2>
+        </div>
+      )
+    }
+
+    function Start(props){
+      return(
+        <div>
+          <content style={{visibility:props.showStart? "visible": "hidden"}}>
+            <h2>How well can you do math without a calculator?</h2>
+            <button style={{width: "100px", height: "50px", visibility:props.showStart? "visible": "hidden", borderWidth:'2px', borderColor: "gold", borderRadius: "10px"}} onClick={()=>{props.Generate()}}><h2>Start</h2></button>
+          </content>
+
+        </div>
+
+      )
+    }
+
     class App extends React.Component{
       constructor(props){
         super(props)
         this.state={showStart:1,number1: Math.floor((Math.random()*50)+1)
-          , number2: Math.floor((Math.random()*50)+1), randomNumberBetween1and5:1, question:"", answer:"",wrong1:"",wrong2:"",wrong3:"",wrong4:"",nextQuestion:0,quit:0,orderArray:[],countQuestions:0,countCorrect:0,countWrong:0};
+          , number2: Math.floor((Math.random()*50)+1), randomNumberBetween1and5:1, question:"", answer:"",orderArray:[],countQuestions:0,countCorrect:0,countWrong:0,userChoiceWasCorrect:""};
           this.Generate=this.Generate.bind(this);
           this.Counter=this.Counter.bind(this);
       }
@@ -53,11 +96,13 @@
           return {countQuestions: prevState.countQuestions + 1}
         })
         if (correct){
+          this.setState({userChoiceWasCorrect:1})
           this.setState((prevState,props)=>{
             return {countCorrect:prevState.countCorrect+1}
           })
         }
         else {
+          this.setState({userChoiceWasCorrect:0})
           this.setState((prevState,props)=>{
             return {countWrong:prevState.countWrong+1}
           })
@@ -87,12 +132,12 @@
           if (this.state.randomNumberBetween1and5==1){
             this.setState({question:"What is  the hypotenuse of a right triangle with sides of length " + this.state.number1 + " and " + this.state.number2 + "?"})
             var newAnswer= Operation1(this.state.number1,this.state.number2)
-            var newX=(this.state.number1)+1
-            var newY=this.state.number2+1
+            var newX=(this.state.number1)+10
+            var newY=this.state.number2+10
             var tempWrong1=Operation1(newX,this.state.number2)
             var tempWrong2=Operation1(this.state.number1,newY)
-            var tempWrong3=Operation1(newX,this.state.number2-1)
-            var tempWrong4=Operation1(newX-2,newY)
+            var tempWrong3=Operation1(newX,this.state.number2-7)
+            var tempWrong4=Operation1(this.state.number1-4,newY)
             var tempArray=[newAnswer,tempWrong1,tempWrong2,tempWrong3,tempWrong4]
             this.setState({orderArray : tempArray.sort(function(a, b){return 0.5 - Math.random()})})
           }
@@ -154,30 +199,34 @@
         render(){
           return(
             <div>
-              <button style={{width: "100px", height: "50px", visibility:this.state.showStart? "visible": "hidden", borderWidth:'2px', borderColor: "gold", borderRadius: "10px"}} onClick={()=>{this.Generate()}}><h2>Start</h2></button>
+
+              <Start showStart={this.state.showStart} Generate={this.Generate}/>
 
               <div className="container">
                 <div className="row">
-                  <div className="col-md-5" style={{float:"left", width: "500px", marginLeft:"200px"}}>
-                    <h1></h1>
-                    <h2 style={{ visibility:this.state.showStart? "hidden": "visible"}}>Question #{this.state.countQuestions+1}</h2>
-                    <h2>{this.state.question}</h2>
+                  <div className="col-md-5" style={{float:"left", width: "500px", marginLeft:"150px"}}>
+
+                    <Question showStart={this.state.showStart} countQuestions={this.state.countQuestions} question={this.state.question}/>
+
                     <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[0]==this.state.answer} name={this.state.orderArray[0]} Counter={this.Counter} number1={this.state.number1} number2={this.state.number2}/>
                     <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[1]==this.state.answer} name={this.state.orderArray[1]} Counter={this.Counter}/>
                     <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[2]==this.state.answer} name={this.state.orderArray[2]} Counter={this.Counter}/>
                     <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[3]==this.state.answer} name={this.state.orderArray[3]} Counter={this.Counter}/>
                     <Button className="choices" start={this.state.showStart} correct={this.state.orderArray[4]==this.state.answer} name={this.state.orderArray[4]} Counter={this.Counter}/>
-                    <br/>
                   </div>
 
-
-                  <div className="col-md-5" style={{float:"right", backgroundColor:"#eaeaea", marginRight:"200px"}}>
+                  <div className="col-md-5" style={{float:"right", backgroundColor:"#fffbe5", marginRight:"200px"}}>
                     <div style={this.state.countQuestions>0? {}:{"display":"none"}}>
+
+                        <Encourage countQuestions={this.state.countQuestions} countCorrect={this.state.countCorrect}/>
+
+                        <Feedback countQuestions={this.state.countQuestions} countCorrect={this.state.countCorrect} userChoiceWasCorrect={this.state.userChoiceWasCorrect}/>
 
                         <Results countQuestions={this.state.countQuestions} countCorrect={this.state.countCorrect} countWrong={this.state.countWrong} percentage={this.state.percentage}/>
 
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>
